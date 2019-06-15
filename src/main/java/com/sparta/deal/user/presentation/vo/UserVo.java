@@ -6,7 +6,7 @@ public class UserVo {
     private String password; //패스워드
     private Integer age; //나이
     private Integer sex; //성별
-    private String email; //이메일 주소
+    private String emailName; //이메일 주소
 
     public String getUserId() {
         return userId;
@@ -24,8 +24,8 @@ public class UserVo {
         return sex;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailName() {
+        return emailName;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserVo {
                 ", password='" + password + '\'' +
                 ", age=" + age +
                 ", sex=" + sex +
-                ", email='" + email + '\'' +
+                ", emailName='" + emailName + '\'' +
                 '}';
     }
 }

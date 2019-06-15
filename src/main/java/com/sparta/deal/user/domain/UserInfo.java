@@ -21,7 +21,8 @@ public class UserInfo implements UserDetails {
     private String password; //패스워드
     private Integer age; //나이
     private Integer sex; //성별
-    private String email; //이메일 주소
+    @Embedded
+    private Email email; //이메일 주소
     private LocalDateTime createTime; //생성 시간
     @ElementCollection
     @CollectionTable(
@@ -42,10 +43,16 @@ public class UserInfo implements UserDetails {
     public UserInfo(String userId, String password, Integer age, Integer sex,
                     String email) {
         this.userId = userId;
+        /**
+         * @todo 비밀번호 Pattern 추후, 구현
+         *      UserDetails 와 Relation 되어 있기 때문에
+         *      Security 유저 객체 용도와 Entity 용도를 분리시킨 후,
+         *      Password Pattern  구현
+         */
         this.password = password;
         this.age = age;
         this.sex = sex;
-        this.email = email;
+        this.email = new Email(email);
         this.createTime = LocalDateTime.now();
         //default 권한 자동 생성
         this.roleNames = Arrays.asList("ROLE_USER");

@@ -1,6 +1,5 @@
 package com.sparta.deal.user.presentation.api;
 
-import com.sparta.deal.manager.application.AuthorizationService;
 import com.sparta.deal.user.domain.UserInfo;
 import com.sparta.deal.user.application.UserService;
 import com.sparta.deal.user.presentation.vo.UserVo;
