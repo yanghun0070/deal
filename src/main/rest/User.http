@@ -1,0 +1,30 @@
+#회원 가입
+POST http://localhost:8080/v1/user/join
+Content-Type: application/json
+
+{
+    "userId": "test",
+    "password": "test",
+    "age": 31,
+    "sex": 0,
+    "email": "test@naver.com"
+}
+
+
+###
+
+#인증 로그인
+POST http://localhost:8080/v1/auth/signin
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "test"
+}
+
+
+###
+
+# 유저 권한 부여
+
+
