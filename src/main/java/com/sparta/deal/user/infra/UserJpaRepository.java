@@ -13,4 +13,6 @@ public interface UserJpaRepository extends JpaRepository<UserInfo, Integer> {
      * @return 유저 정보
      */
     public Optional<UserInfo> findByUserId(String userId);
+
+
 }

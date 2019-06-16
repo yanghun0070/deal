@@ -1,6 +1,8 @@
 package com.sparta.deal.user.application.impl;
 
+import com.sparta.deal.user.domain.UserAuthorization;
 import com.sparta.deal.user.domain.UserInfo;
+import com.sparta.deal.user.infra.UserAuthorizationJpaRepository;
 import com.sparta.deal.user.infra.UserJpaRepository;
 import com.sparta.deal.user.application.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,25 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserJpaRepository userJpaRepository;
 
-    @Override
-    public void create(UserInfo user) {
-        System.out.println("xxx222:" + user.toString());
+    @Autowired
+    private UserAuthorizationJpaRepository userAuthorizationJpaRepository;
 
-        userJpaRepository.save(new UserInfo(user.getUserId(),
+
+    @Override
+    public void join(UserInfo user) {
+        //1:N 일 경우, insert 를 해 준후, 외래 키 때문에 update 를 해준다.
+        UserInfo changedUser = new UserInfo(user.getUserId(),
                 user.getPassword(),
-                user.getAge(), user.getSex(), user.getEmail()));
+                user.getAge(), user.getSex(),
+                user.getEmail().getName());
+        userJpaRepository.save(changedUser);
+        //회원 가입 시, 유저 초기 권한 설정
+        UserAuthorization userAuthorization =
+            new UserAuthorization(changedUser, "ROLE_USER");
+        userAuthorizationJpaRepository.save(userAuthorization);
+        changedUser.addUserAuthorization(userAuthorization);
+        userJpaRepository.save(changedUser);
+
     }
 
     @Override

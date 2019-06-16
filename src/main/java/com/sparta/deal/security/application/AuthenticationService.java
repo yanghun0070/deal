@@ -53,7 +53,11 @@ public class AuthenticationService {
                     userService.findByUserId(userName)
                             .orElseThrow(() ->
                                     new UsernameNotFoundException("Username " + userName + " not found"))
-                            .getRoleNames());
+                            .getUserAuthorizations()
+                            .stream()
+                            .map(userAuthorization ->
+                                    userAuthorization.getRoleName())
+                            .collect(Collectors.toList()));
             Map<Object, Object> model = new HashMap<>();
             model.put("username", userName);
             model.put("token", token);

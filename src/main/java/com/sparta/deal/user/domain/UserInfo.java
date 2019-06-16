@@ -9,14 +9,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static javax.persistence.GenerationType.TABLE;
-
 @Getter
 @Setter
 @Entity
 @Table(name = "deal_user")
 public class UserInfo implements UserDetails {
-    @Id
+    @Id @Column(name = "user_id")
     private String userId;//유저 ID
     private String password; //패스워드
     private Integer age; //나이
@@ -24,13 +22,14 @@ public class UserInfo implements UserDetails {
     @Embedded
     private Email email; //이메일 주소
     private LocalDateTime createTime; //생성 시간
-    @ElementCollection
-    @CollectionTable(
-            name="deal_user_role",
-            joinColumns=@JoinColumn(name="deal_authorization"))
-    private List<String> roleNames = new ArrayList<>(); //유저 권한 목록
+    @OneToMany(mappedBy = "user") //연관되어 매핑된 UserInfo 정의된 객체
+    private List<UserAuthorization> userAuthorizations = new ArrayList<>();
 
     private UserInfo() {}
+
+    public UserInfo(String userId) {
+        this.userId = userId;
+    }
 
     /**
      * 회원 가입 시에, 추가되는 목록
@@ -54,12 +53,14 @@ public class UserInfo implements UserDetails {
         this.sex = sex;
         this.email = new Email(email);
         this.createTime = LocalDateTime.now();
-        //default 권한 자동 생성
-        this.roleNames = Arrays.asList("ROLE_USER");
     }
 
-    public List<String> getRoleNames() {
-        return roleNames;
+    public void addUserAuthorization(UserAuthorization userAuthorization) {
+        //무한 루프에 빠지는 거 방지
+        if(userAuthorization == null) {
+            userAuthorizations = new ArrayList<>();
+        }
+        userAuthorizations.add(userAuthorization);
     }
 
     @Override
@@ -98,16 +99,4 @@ public class UserInfo implements UserDetails {
     }
 
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                ", email='" + email + '\'' +
-                ", createTime=" + createTime +
-                ", roleNames=" + roleNames +
-                '}';
-    }
 }
