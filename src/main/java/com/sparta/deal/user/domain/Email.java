@@ -4,10 +4,9 @@ import java.util.regex.Pattern;
 
 public class Email {
     private String name;
-    private String emailPattern = "^[a-zA-z0-9]+@[a-zA-Z0-9]+.+[a-zA-Z]$";
 
     private void validate(String name) {
-        boolean isEmailPattern = Pattern.matches(emailPattern, name);
+        boolean isEmailPattern = Pattern.matches("^[a-zA-z0-9]+@[a-zA-Z0-9]+.+[a-zA-Z]$", name);
         if(!isEmailPattern) throw new IllegalArgumentException("email don't match");
     }
 

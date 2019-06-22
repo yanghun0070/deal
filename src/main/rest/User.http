@@ -25,6 +25,21 @@ Content-Type: application/json
 
 ###
 
-# 유저 권한 부여
+# 리소스 생성
+POST http://localhost:8080/resources/create
+Content-Type: application/json
+
+[{
+    "name": "/resources/create",
+    "description": "리소스 생성",
+    "authorizationNames": ["ROLE_MANAGER"]
+},{
+    "name": "/authorization/create",
+    "description": "권한 생성",
+    "authorizationNames": ["ROLE_MANAGER"]
+}]
+
+### 유저 권한 매핑
+#POST
 
 

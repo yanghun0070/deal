@@ -1,22 +1,21 @@
 package com.sparta.deal.security.config;
 
+import com.sparta.deal.manager.application.SiteService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-
-import java.util.Arrays;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 /**
  * Web 보안 설정
@@ -28,6 +27,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private SiteService siteService;
+
+    private Logger logger;
+
+    @Bean
+    public UrlResourceMapFactoryBean urlResourceMapFactoryBean() {
+        return new UrlResourceMapFactoryBean();
+    }
+
     /**
      * authenticationManager를 사용하기 위해, Bean 객체 설정
      * @return
@@ -38,6 +47,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+    @Bean
+    public AccessDecisionManager accessDecisionManager() {
+        return new DefaultAccessDecisionManager();
+    }
+
 
     /**
      * Http Security 설정
@@ -52,9 +67,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
+        .addFilter(new AnonymousAuthenticationFilter("anonymous"))
         .authorizeRequests()
         .antMatchers("/user/join", "/auth/**","/h2-console/**").permitAll()
-        .anyRequest().authenticated()
+        .anyRequest()
+        .anonymous() //인증되지 않은 사용자가 접근
+        .and()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+            public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
+                fsi.setSecurityMetadataSource(
+                        new DefaultFilterInvocationMetadataSource(siteService.findRoleResources()));
+                fsi.setAccessDecisionManager(accessDecisionManager());
+//                fsi.setPublishAuthorizationSuccess(true);
+                return fsi;
+            }
+        })
         .and()
         .headers()
         .frameOptions().disable()
