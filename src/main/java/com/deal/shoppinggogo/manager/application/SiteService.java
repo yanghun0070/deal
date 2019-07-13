@@ -44,9 +44,7 @@ public class SiteService {
                     // 리소스에 해당하는 권한 리스트
                     roles.add(new SecurityConfig(role.getName()));
                 }
-                roles.add(new SecurityConfig("ROLE_ADMIN"));
                 initData.put(resource.getName(), roles);
-
                 requestMap.put(new AntPathRequestMatcher(resource.getName()), roles);
             }
         }

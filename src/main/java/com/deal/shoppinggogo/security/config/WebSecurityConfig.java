@@ -13,9 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Web 보안 설정
@@ -53,6 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new DefaultAccessDecisionManager();
     }
 
+    @Bean
+    public JwtTokenFilter authenticationTokenFilterBean() {
+        return new JwtTokenFilter(jwtTokenProvider);
+    }
 
     /**
      * Http Security 설정
@@ -66,12 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .httpBasic().disable()
         .csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .addFilter(new AnonymousAuthenticationFilter("anonymous"))
-        .authorizeRequests()
-        .antMatchers("/user/join", "/auth/**","/h2-console/**").permitAll()
-        .anyRequest()
-        .anonymous() //인증되지 않은 사용자가 접근
         .and()
         .authorizeRequests()
         .anyRequest()
@@ -90,6 +87,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .frameOptions().disable()
         .and()
         .apply(new JwtConfigurer(jwtTokenProvider));
+
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilterBean(),
+                        UsernamePasswordAuthenticationFilter.class);
+
     }
 
 

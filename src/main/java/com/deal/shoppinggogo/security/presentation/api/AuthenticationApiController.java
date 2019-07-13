@@ -2,12 +2,20 @@ package com.deal.shoppinggogo.security.presentation.api;
 
 import com.deal.shoppinggogo.security.application.AuthenticationService;
 import com.deal.shoppinggogo.security.domain.AuthenticationRequest;
+import com.deal.shoppinggogo.user.domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 /**
  * 인증 API
@@ -26,8 +34,19 @@ public class AuthenticationApiController {
      * @throws Exception
      */
     @PostMapping("signin")
-    public ResponseEntity signin(@RequestBody AuthenticationRequest data) throws Exception {
-        return authenticationService.signin(data);
+    public ResponseEntity signin(@RequestBody AuthenticationRequest data, HttpServletResponse response) throws Exception {
+        return authenticationService.signin(data, response);
     }
 
+    @GetMapping("me")
+    public ResponseEntity currentUser(@AuthenticationPrincipal UserInfo userInfo){
+        Map<Object, Object> model = new HashMap<>();
+        model.put("username", userInfo.getUsername());
+        model.put("roles", userInfo.getAuthorities()
+                .stream()
+                .map(a -> ((GrantedAuthority) a).getAuthority())
+                .collect(Collectors.toList())
+        );
+        return ok(model);
+    }
 }

@@ -27,6 +27,7 @@ public class DefaultFilterInvocationMetadataSource implements FilterInvocationSe
         String url = fi.getRequestUrl();
         String httpMethod = fi.getRequest().getMethod();
         logger.info("HTTP method: [" + httpMethod + "]. HTTP URL: [" + url + "].");
+
         /**
          * @todo 매번 DB 에서 꺼내올 필요 없으므로,redis 및 Cache 를 통해 저장한다.
          *
@@ -36,6 +37,7 @@ public class DefaultFilterInvocationMetadataSource implements FilterInvocationSe
         for (Map.Entry<RequestMatcher, List<ConfigAttribute>> entry : requestMap.entrySet()) {
             if (entry.getKey().matches(request)) {
                 result = entry.getValue();
+                logger.info("result:" + result);
                 break;
             }
         }

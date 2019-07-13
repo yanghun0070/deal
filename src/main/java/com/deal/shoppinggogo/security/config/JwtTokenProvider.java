@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +38,12 @@ public class JwtTokenProvider {
     }
 
 
+    /**
+     * JWT Token 생성
+     * @param username 유저명
+     * @param roles 권한명 목록
+     * @return
+     */
     public String createToken(String username, List<String> roles) {
 
         Claims claims = Jwts.claims().setSubject(username);
@@ -52,19 +60,32 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    /**
+     * JWT Subject 명(유저명) 을 얻는다.
+     * @param token
+     * @return
+     */
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
-
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return Jwts.parser().setSigningKey(secretKey).
+                parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     /**
      *
+     * @param token
+     * @return
+     */
+    @Transactional
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
+                userDetails.getAuthorities());
+    }
+
+    /**
      *
-     * @note 아임포트 REST API는 Bearer 인증 방식을 사용하기 때문에 Authorization: Bearer <token> 형식으로 HTTP 요청 헤더에 포함
      * @param req
      * @return
      */
@@ -92,6 +113,15 @@ public class JwtTokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
         }
+    }
+
+
+    /**
+     * Request Header 안에 Token 을 추가시킨다.
+     * @param token jwt token
+     */
+    public void addTokenInHeader(String token, HttpServletResponse res) {
+        res.addHeader("Authorization", "Bearer " + token);
     }
 
 

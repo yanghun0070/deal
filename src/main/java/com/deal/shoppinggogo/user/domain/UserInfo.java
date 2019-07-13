@@ -3,11 +3,14 @@ package com.deal.shoppinggogo.user.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -22,7 +25,7 @@ public class UserInfo implements UserDetails {
     @Embedded
     private Email email; //이메일 주소
     private LocalDateTime createTime; //생성 시간
-    @OneToMany(mappedBy = "user") //연관되어 매핑된 UserInfo 정의된 객체
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST) //연관되어 매핑된 UserInfo 정의된 객체
     private List<UserAuthorization> userAuthorizations = new ArrayList<>();
 
     private UserInfo() {}
@@ -65,7 +68,10 @@ public class UserInfo implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return userAuthorizations
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -10,12 +10,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -39,14 +40,13 @@ public class AuthenticationService {
      * @return
      * @throws Exception
      */
-    public ResponseEntity signin(@RequestBody AuthenticationRequest data) throws Exception {
+    public ResponseEntity signin(@RequestBody AuthenticationRequest data, HttpServletResponse response) throws Exception {
         try {
             String userName = data.getUsername();
-            /**
-             * @todo 비밀번호 인증 구현할 때, 필요
-             */
-//            Authentication authentication =
-//                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword()));
+            final Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
             String token = jwtTokenProvider.createToken(userName,
                     userService.findByUserId(userName)
                             .orElseThrow(() ->
@@ -56,6 +56,8 @@ public class AuthenticationService {
                             .map(userAuthorization ->
                                     userAuthorization.getRoleName())
                             .collect(Collectors.toList()));
+            //Header 에 정보를 추가시킨다.
+//            jwtTokenProvider.addTokenInHeader(token, response);
             Map<Object, Object> model = new HashMap<>();
             model.put("username", userName);
             model.put("token", token);

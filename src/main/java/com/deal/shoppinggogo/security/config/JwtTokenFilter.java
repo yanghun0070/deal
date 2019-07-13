@@ -11,6 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * 토큰의 유효성을 검사하는 필터
+ */
 public class JwtTokenFilter extends GenericFilterBean {
 
     private JwtTokenProvider jwtTokenProvider;
@@ -20,7 +23,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     }
 
     /**
-     * create a custom JWT token based authentication filter to validate the JWT token
+     * JWT 토큰의 유효성을 검사하기 위해 사용자 정의 JWT 토큰 기반 인증 필터 정의
      * @param req
      * @param res
      * @param filterChain
@@ -29,7 +32,6 @@ public class JwtTokenFilter extends GenericFilterBean {
      */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
-
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
         if(token != null && jwtTokenProvider.validateToken(token)) {
             Authentication auth = jwtTokenProvider.getAuthentication(token);
