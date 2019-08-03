@@ -1,15 +1,15 @@
-#회원 가입
-POST http://localhost:8080/user/join
-Content-Type: application/json
-
-{
-    "userId": "test",
-    "password": "test",
-    "age": 31,
-    "sex": 0,
-    "email": "test@naver.com"
-}
-
+##회원 가입
+#POST http://localhost:8080/user/join
+#Content-Type: application/json
+#
+#{
+#    "userId": "test999",
+#    "password": "test999",
+#    "age": 31,
+#    "sex": 0,
+#    "emailName": "test@naver.com"
+#}
+#
 
 ###
 
@@ -22,24 +22,27 @@ Content-Type: application/json
     "password": "test"
 }
 
+###
+
+#인증 로그인 했을 시의  Token 값 사용
+GET http://localhost:8080/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU2NDgxODY2MiwiZXhwIjoxNTY0ODIyMjYyfQ.npeSPII7jE64-gqXiS-gHBsMZDYlj292-ykowck6qMw
+
 
 ###
 
 # 리소스 생성
-POST http://localhost:8080/resources/create
-Content-Type: application/json
-
-[{
-    "name": "/resources/create",
-    "description": "리소스 생성",
-    "authorizationNames": ["ROLE_MANAGER"]
-},{
-    "name": "/authorization/create",
-    "description": "권한 생성",
-    "authorizationNames": ["ROLE_MANAGER"]
-}]
-
-### 유저 권한 매핑
-#POST
+#POST http://localhost:8080/resources/create
+#Content-Type: application/json
+#
+#[{
+#    "name": "/resources/create",
+#    "description": "리소스 생성",
+#    "authorizationNames": ["ROLE_MANAGER"]
+#},{
+#    "name": "/authorization/create",
+#    "description": "권한 생성",
+#    "authorizationNames": ["ROLE_MANAGER"]
+#}]
 
 

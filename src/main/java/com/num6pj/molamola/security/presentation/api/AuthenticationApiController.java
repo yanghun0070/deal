@@ -37,6 +37,11 @@ public class AuthenticationApiController {
         return authenticationService.signin(data, response);
     }
 
+    /**
+     * 현재, 유저 정보를 조회한다.
+     * @param userInfo 유저 정보
+     * @return
+     */
     @GetMapping("me")
     public ResponseEntity currentUser(@AuthenticationPrincipal UserInfo userInfo){
         Map<Object, Object> model = new HashMap<>();
