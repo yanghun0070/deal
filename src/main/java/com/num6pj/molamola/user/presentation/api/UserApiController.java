@@ -1,8 +1,7 @@
 package com.num6pj.molamola.user.presentation.api;
 
-import com.deal.shoppinggogo.user.application.UserService;
-import com.deal.shoppinggogo.user.domain.UserInfo;
-import com.deal.shoppinggogo.user.presentation.vo.UserVo;
+import com.num6pj.molamola.user.application.UserService;
+import com.num6pj.molamola.user.domain.UserInfo;
 import com.num6pj.molamola.user.presentation.vo.UserVo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

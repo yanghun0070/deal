@@ -1,9 +1,5 @@
 package com.num6pj.molamola.manager.presentation.api;
 
-import com.deal.shoppinggogo.manager.application.SiteService;
-import com.deal.shoppinggogo.manager.domain.Authorization;
-import com.deal.shoppinggogo.manager.domain.Resource;
-import com.deal.shoppinggogo.manager.presentation.vo.ResourceVo;
 import com.num6pj.molamola.manager.application.SiteService;
 import com.num6pj.molamola.manager.domain.Authorization;
 import com.num6pj.molamola.manager.domain.Resource;

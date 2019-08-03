@@ -1,6 +1,6 @@
 package com.num6pj.molamola.security.config;
 
-import com.deal.shoppinggogo.security.exception.InvalidJwtAuthenticationException;
+import com.num6pj.molamola.security.exception.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

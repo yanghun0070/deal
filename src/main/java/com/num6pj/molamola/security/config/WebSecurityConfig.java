@@ -1,6 +1,5 @@
 package com.num6pj.molamola.security.config;
 
-import com.deal.shoppinggogo.manager.application.SiteService;
 import com.num6pj.molamola.manager.application.SiteService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

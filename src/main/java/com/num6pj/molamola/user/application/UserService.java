@@ -1,6 +1,5 @@
 package com.num6pj.molamola.user.application;
 
-import com.deal.shoppinggogo.user.domain.UserInfo;
 import com.num6pj.molamola.user.domain.UserInfo;
 
 import java.util.Optional;

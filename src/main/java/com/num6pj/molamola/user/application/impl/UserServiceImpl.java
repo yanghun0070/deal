@@ -1,10 +1,6 @@
 package com.num6pj.molamola.user.application.impl;
 
-import com.deal.shoppinggogo.user.application.UserService;
-import com.deal.shoppinggogo.user.domain.UserAuthorization;
-import com.deal.shoppinggogo.user.domain.UserInfo;
-import com.deal.shoppinggogo.user.infra.UserAuthorizationJpaRepository;
-import com.deal.shoppinggogo.user.infra.UserJpaRepository;
+import com.num6pj.molamola.user.application.UserService;
 import com.num6pj.molamola.user.domain.UserAuthorization;
 import com.num6pj.molamola.user.domain.UserInfo;
 import com.num6pj.molamola.user.infra.UserAuthorizationJpaRepository;

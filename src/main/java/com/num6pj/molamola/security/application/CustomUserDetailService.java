@@ -1,6 +1,5 @@
 package com.num6pj.molamola.security.application;
 
-import com.deal.shoppinggogo.user.infra.UserJpaRepository;
 import com.num6pj.molamola.user.infra.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

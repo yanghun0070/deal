@@ -1,9 +1,7 @@
 package com.num6pj.molamola.security.application;
 
-import com.deal.shoppinggogo.security.config.JwtTokenProvider;
-import com.deal.shoppinggogo.security.domain.AuthenticationRequest;
-import com.deal.shoppinggogo.user.application.UserService;
 import com.num6pj.molamola.security.config.JwtTokenProvider;
+import com.num6pj.molamola.security.domain.AuthenticationRequest;
 import com.num6pj.molamola.user.application.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

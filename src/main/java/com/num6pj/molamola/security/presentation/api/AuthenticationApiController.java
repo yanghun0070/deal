@@ -1,15 +1,12 @@
 package com.num6pj.molamola.security.presentation.api;
 
-import com.deal.shoppinggogo.security.application.AuthenticationService;
-import com.deal.shoppinggogo.security.domain.AuthenticationRequest;
-import com.deal.shoppinggogo.user.domain.UserInfo;
 import com.num6pj.molamola.security.application.AuthenticationService;
+import com.num6pj.molamola.security.domain.AuthenticationRequest;
 import com.num6pj.molamola.user.domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;

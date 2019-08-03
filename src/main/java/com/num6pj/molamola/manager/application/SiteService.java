@@ -1,13 +1,10 @@
 package com.num6pj.molamola.manager.application;
 
-import com.deal.shoppinggogo.manager.domain.Authorization;
-import com.deal.shoppinggogo.manager.domain.Resource;
-import com.deal.shoppinggogo.manager.infra.AuthorizationJpaRepository;
-import com.deal.shoppinggogo.manager.infra.ResourceJpaRepository;
-import com.deal.shoppinggogo.security.application.CustomUserDetailService;
 import com.num6pj.molamola.manager.domain.Authorization;
 import com.num6pj.molamola.manager.domain.Resource;
 import com.num6pj.molamola.manager.infra.AuthorizationJpaRepository;
+import com.num6pj.molamola.manager.infra.ResourceJpaRepository;
+import com.num6pj.molamola.security.application.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

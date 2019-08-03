@@ -1,6 +1,6 @@
 package com.num6pj.molamola.manager.infra;
 
-import com.deal.shoppinggogo.manager.domain.Authorization;
+import com.num6pj.molamola.manager.domain.Authorization;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

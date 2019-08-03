@@ -1,7 +1,7 @@
 package com.num6pj.molamola.user.infra;
 
 
-import com.deal.shoppinggogo.user.domain.UserInfo;
+import com.num6pj.molamola.user.domain.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
