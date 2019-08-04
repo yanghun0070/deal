@@ -45,4 +45,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MR
 #    "authorizationNames": ["ROLE_MANAGER"]
 #}]
 
+#Create CategoryTest
+POST http://localhost:8080/category/create
+Content-Type: application/json
 
+{
+  "categoryName":"lol",
+  "createAt":123434
+}
+
+###

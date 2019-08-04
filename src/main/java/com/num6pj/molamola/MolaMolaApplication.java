@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-	public class MolaMolaApplication {
+public class MolaMolaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MolaMolaApplication.class, args);
