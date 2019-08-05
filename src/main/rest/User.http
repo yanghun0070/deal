@@ -45,13 +45,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MR
 #    "authorizationNames": ["ROLE_MANAGER"]
 #}]
 
-#Create CategoryTest
+# 카테고리 생성
 POST http://localhost:8080/category/create
 Content-Type: application/json
 
 {
-  "categoryName":"lol",
-  "createAt":123434
+  "name":"lol"
 }
 
 ###

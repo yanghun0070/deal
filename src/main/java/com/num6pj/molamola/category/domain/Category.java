@@ -1,29 +1,28 @@
 package com.num6pj.molamola.category.domain;
 
-import com.num6pj.molamola.category.presentation.vo.CategoryVO;
-import lombok.AllArgsConstructor;
+
+
 import lombok.Data;
-import lombok.Getter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
 @Entity
-@Table(name="Category")
+@Data
+@Table(name="category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private long id;
-     private String categoryName;
-     private int createAt;
+     private String name; //카테고리명
+     private String userName; //유저명
+     private LocalDateTime createDate; //생성 날짜
 
-    public Category(CategoryVO categoryVO) {
-        this.categoryName = categoryVO.getCategoryName();
-        this.createAt = categoryVO.getCreateAt();
+    public Category(String name, String userName) {
+        this.name = name;
+        this.userName = userName;
+        this.createDate = LocalDateTime.now();
     }
-
 
 }
