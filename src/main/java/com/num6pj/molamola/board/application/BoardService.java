@@ -20,15 +20,6 @@ public class BoardService {
         this.categoryRepository = categoryRepository;
     }
 
-    /*
-    TODO. cateory의 id 사용해서 board list 가지고 오기
-     */
-//    public List<Board> getAllBoardList(Long categoryId,int page){
-//        //categoryId 인 board를 가지고 오기
-//        boardRepository.findAll();
-//        return null;
-//    }
-
     public void savePost(BoardVo newBoard){
         Category category = categoryRepository.findById(newBoard.getCatetoryId()).orElseGet(null);
 

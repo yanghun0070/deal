@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@Table(name="category")
 @NoArgsConstructor
+@Table(name="category")
 public class Category {
 
     @Id
@@ -38,4 +37,39 @@ public class Category {
         return boards;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
+    }
 }

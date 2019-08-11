@@ -2,21 +2,23 @@ package com.num6pj.molamola.board.domain;
 
 import com.num6pj.molamola.category.domain.Category;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 
 
-@Data
+
 @Entity
+@NoArgsConstructor
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long boardId;
-    final private Long userId;
-    final private String title;
-    final private String content;
+    private Long userId;
+    private String title;
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "CategoryId")
@@ -34,5 +36,39 @@ public class Board {
         return category;
     }
 
+    public Long getBoardId() {
+        return boardId;
+    }
 
+    public void setBoardId(Long boardId) {
+        this.boardId = boardId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

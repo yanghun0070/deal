@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class CategoryService {
 
+
     private CategoryRepository categoryRepository;
     private BoardRepository boardRepository;
 
@@ -19,12 +20,15 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
         this.boardRepository = boardRepository;
     }
+
     public List<Category> getCategoryList(){
+        List<Category> categories = categoryRepository.findAll();
+        categories.stream().forEach(e->System.out.println(e.toString()));
         return categoryRepository.findAll();
     }
 
     public void createCategory(Category category, String userName) {
-        categoryRepository.save(new Category(category.getName(), userName));
+            categoryRepository.save(new Category(category.getName(), userName));
     }
     /*
     TODO. cateory의 id 사용해서 board list 가지고 오기

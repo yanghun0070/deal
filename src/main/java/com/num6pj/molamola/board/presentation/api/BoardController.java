@@ -19,7 +19,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("create")
     public void makeBoard(@RequestBody BoardVo board){
         boardService.savePost(board);
     }
