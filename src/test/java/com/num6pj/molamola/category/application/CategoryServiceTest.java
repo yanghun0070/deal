@@ -20,7 +20,7 @@ public class CategoryServiceTest {
     private CategoryService categoryService;
 
     @Test
-    public void craeteCategory(){
+    public void createCategory(){
         Category category = new Category("LOL","morikim");
         categoryService.createCategory(category, "morikim");
     }
