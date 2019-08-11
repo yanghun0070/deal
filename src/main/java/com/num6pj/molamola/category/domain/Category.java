@@ -4,6 +4,7 @@ package com.num6pj.molamola.category.domain;
 
 import com.num6pj.molamola.board.domain.Board;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="category")
+@NoArgsConstructor
 public class Category {
 
     @Id
@@ -24,6 +26,7 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Board> boards = new ArrayList<>();
+
 
     public Category(String name, String userName) {
         this.name = name;

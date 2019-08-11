@@ -50,7 +50,8 @@ POST http://localhost:8080/category/create
 Content-Type: application/json
 
 {
-  "name":"lol"
+  "name":"lol",
+  "username": "morris"
 }
 
 ###

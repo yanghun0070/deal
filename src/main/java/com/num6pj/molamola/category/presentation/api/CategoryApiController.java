@@ -30,7 +30,6 @@ public class CategoryApiController {
     @PostMapping("create")
     public void createCategory(@RequestBody CategoryVo category,
                                @AuthenticationPrincipal UserInfo userInfo){
-
         categoryService.createCategory(new ModelMapper().map(
                 category, Category.class), userInfo.getUsername());
     }
