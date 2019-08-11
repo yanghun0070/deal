@@ -8,6 +8,9 @@ public class CategoryVo {
     private String userName; //유저명
     private String createDate; //생성일자
 
+    public CategoryVo() {
+    }
+
     public CategoryVo(String name, String userName) {
         this.name = name;
         this.userName = userName;
